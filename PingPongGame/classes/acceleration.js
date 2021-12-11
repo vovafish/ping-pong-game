@@ -2,7 +2,7 @@
 
     //variable to store ax and ay
     var ax = 0;
-
+    //
 
     //public read only property for AX
     Object.defineProperty(this, 'AX',

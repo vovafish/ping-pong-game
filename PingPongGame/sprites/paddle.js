@@ -1,5 +1,5 @@
 ﻿function Paddle() {
-
+    //
     var x = 0,
         y = 0,
         vx = 0,

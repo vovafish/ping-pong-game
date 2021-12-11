@@ -28,7 +28,7 @@
             }
         }
     )
-
+    //
     //create a public property called Left
     Object.defineProperty(this, 'Left',
         {
@@ -39,7 +39,7 @@
             }
         }
     )
-
+    //
     //create a public property called Right
     Object.defineProperty(this, 'Right',
         {
