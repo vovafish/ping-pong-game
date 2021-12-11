@@ -1,0 +1,153 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Ping Pong Game</title>
+    <link href="StyleSheet.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="game-body">
+        <canvas id="canvas" width="400" height="600"></canvas>
+    </div>
+    <script src="sprites/ball.js"></script>
+    <script src="classes/keycode.js"></script>
+    <script src="sprites/paddle.js"></script>
+    <script src="classes/vector.js"></script>
+    <script src="sprites/cpupaddle.js"></script>
+    <script src="classes/collision.js"></script>
+    <script src="classes/acceleration.js"></script>
+    <script>
+        //this function will always be executed when the page loads
+        window.onload = function () {
+            //create a reference to the canvas
+            var canvas = document.getElementById('canvas'),
+                //access the 2D drawing API
+                context = canvas.getContext('2d'),
+                //new instance of the Classes
+                paddle = new Paddle();
+                cpupaddle = new CPUPaddle();
+                ball = new Ball();
+                //vector = new Vector(200, 200);
+                acceleration = new Accelerate();
+                collision = new Collision();
+                //paddle.setVector(vector);
+            
+            
+
+                cpupaddle.X = 200;
+                cpupaddle.Y = 5;
+
+                paddle.X = 200;
+                paddle.Y = 595;
+
+            
+            
+
+
+                ball.X = 200;
+                ball.Y = 300;
+
+
+
+            //function to handle keyboard events
+            function KeyboardEventHandler(event) {
+
+                //if the left arrow is pressed
+                if (event.keyCode == keycode.LEFT) {
+                    //acceleration.HThrust(.1);
+                    paddle.X -= 5
+
+                }
+                //if the right arrow is pressed
+                if (event.keyCode == keycode.RIGHT) {
+
+                    //acceleration.HThrust(-.1);
+                    paddle.X += 5
+                }
+
+            }
+
+            //add a listener for the keydown event
+            window.addEventListener('keydown', KeyboardEventHandler, false);
+
+
+
+            (function drawFrame() {
+                //clear the canvas
+                context.clearRect(0, 0, canvas.width, canvas.height);
+                //increase the y posn by the y velocity
+                ball.Y += ball.VY;
+                //increase the x posn by the x velocity
+                ball.X += ball.VX;
+                //if the ball miss the paddle
+                if (ball.Y - ball.Size < 0) {
+                    //reverse the y velocity
+                    //ball.VY = -ball.VY;
+                    console.log("Goal for Player!");
+                    /*
+                    ball.X = canvas.width / 2;
+                    ball.Y = canvas.height / 2;
+                    */
+
+
+
+
+                }
+                if (ball.Y + ball.Size > canvas.height) {
+                    //reverse the y velocity
+                    //ball.VY = -ball.VY;
+                    console.log("Goal for CPU!");
+                }
+                //if the box hits the canvas left or right
+                if (ball.X - ball.Size < 0 | ball.X + ball.Size > canvas.width) {
+                    //reverse the x velocity
+                    ball.VX = -ball.VX;
+                }
+                /*
+                //if the ball hits CPU paddle
+                if (ball.Y - ball.Size < 10| ball.Y + paddle.height > 200) {
+                    //ball.VY = -ball.VY;
+                    console.log("hits CPU paddle!");
+                }
+                //if the ball hits Palyer paddle
+                if (ball.X - paddle.width < 590 | ball.X + paddle.width > 200 ) {
+                    //ball.VY = -ball.VY;
+                    console.log("hits Palyer paddle!");
+                }
+                */
+
+
+
+                //set the angle of rotation for the arrow
+                // arrow.Rotation = Math.atan2(dy, dx);
+                //draw the box
+                ball.draw(context);
+                cpupaddle.drawCPU(context);
+                paddle.drawPlayer(context);
+                
+                paddle.move();
+                //paddle.accelerate(acceleration);
+                
+                if (collision.Overlapping(ball, paddle)) {
+                    //alert that a collision has taken place
+                    console.log("Hit the paddle")
+                    ball.VX = -ball.VX;
+                    ball.VY = -ball.VY;
+                }
+                
+                if (collision.Overlapping(ball, cpupaddle)) {
+                    //alert that a collision has taken place
+                    console.log("Hit the cpu paddle")
+                    ball.VX = -ball.VX;
+                    ball.VY = -ball.VY;
+                }
+                
+                //request the next frame
+                window.requestAnimationFrame(drawFrame);
+
+            })();
+
+        }
+    </script>
+</body>
+</html>

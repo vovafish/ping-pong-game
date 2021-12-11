@@ -1,0 +1,42 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.1433
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "PingPongGame", "PingPongGame\", "{5CE95D1A-11E4-403E-B9DE-D173F2C768CC}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.7.2"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_52367"
+		Debug.AspNetCompiler.PhysicalPath = "PingPongGame\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_52367\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_52367"
+		Release.AspNetCompiler.PhysicalPath = "PingPongGame\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_52367\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "52367"
+		SlnRelativePath = "PingPongGame\"
+		DefaultWebSiteLanguage = "Visual C#"
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5CE95D1A-11E4-403E-B9DE-D173F2C768CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5CE95D1A-11E4-403E-B9DE-D173F2C768CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3CA5707D-E377-4B12-8DF4-B344153D4297}
+	EndGlobalSection
+EndGlobal
