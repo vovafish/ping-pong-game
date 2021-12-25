@@ -1,7 +1,12 @@
 ﻿body {
     background-color: rgb(176,176,176);
 }
-
+.header {
+   
+}
+.footer {
+    
+}
 #canvas {
     background-color: rgb(255,255,255);
 }
@@ -11,3 +16,16 @@
     align-items: center;
     margin-top: 2em;
 }
+.header .title {
+    text-align: center;
+    font-family: fantasy;
+    font-size: 2em;
+}
+.footer .title {
+    text-align: center;
+    font-family: fantasy;
+    font-size: 1em;
+}
+
+
+

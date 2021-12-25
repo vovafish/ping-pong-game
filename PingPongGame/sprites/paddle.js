@@ -1,5 +1,7 @@
 ﻿function Paddle() {
-
+    /*
+     Creating basic variables for the Player Paddle
+     */
     var x = 0,
         y = 0,
         vx = 0,
@@ -15,7 +17,7 @@
             //getter
             get: function () {
                 //return the y posn less the height
-                return y - 5;
+                return y - 10;
             }
         }
     )
@@ -26,7 +28,7 @@
             //getter
             get: function () {
                 //return the y posn plus the height
-                return y + 5;
+                return y + 10;
             }
         }
     )
@@ -37,7 +39,7 @@
             //getter
             get: function () {
                 //return the x posn less the width
-                return x - 50;
+                return x - 60;
             }
         }
     )
@@ -48,7 +50,7 @@
             //getter
             get: function () {
                 //return the x posn plus the width
-                return x + 50;
+                return x + 60;
             }
         }
     )
@@ -95,15 +97,11 @@
         context.translate(x, y);
         //start the line (path)
         context.beginPath();
-        context.fillStyle = color;
-        //context.fillRect(width / 2 - widthPaddle / 2, heigth - heightPaddle, widthPaddle, heightPaddle);
-        
+        context.fillStyle = color;    //setting color for the shape from color(blue) variable     
         context.moveTo(-50, -5);
         context.lineTo(50, -5);
         context.lineTo(50, 5);
         context.lineTo(-50, 5);
-        
-
         context.stroke();
         //close the path
         context.closePath();
@@ -114,6 +112,8 @@
 
     Paddle.prototype.move = function ()
     {
+        //x = x + vx 
+        //to make the player paddle moving
         x += vx
     }
 }

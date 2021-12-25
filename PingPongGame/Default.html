@@ -2,47 +2,54 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
-    <title>Ping Pong Game</title>
-    <link href="StyleSheet.css" rel="stylesheet" />
+    <title>Ping Pong Game</title> <!-- name of the webpage -->
+    <link href="StyleSheet.css" rel="stylesheet" /> <!-- Connection link to the CSS file -->
 </head>
 <body>
+    <header class="header">
+        <p class="title">The Game Created For The IMAT2015_2122_501 Multimedia Development</p>
+    </header>
+    <!--Create basic body for the canvas-->
     <div class="game-body">
-        <canvas id="canvas" width="400" height="600"></canvas>
+        <!--Create canvas itselft (place where game going to be created)-->
+        <canvas id="canvas" width="400" height="600">
+        </canvas>
     </div>
+    <!--
+        Creating connection links to the classes (import the classes in the html page)    
+    -->
     <script src="sprites/ball.js"></script>
     <script src="classes/keycode.js"></script>
     <script src="sprites/paddle.js"></script>
-    <script src="classes/vector.js"></script>
     <script src="sprites/cpupaddle.js"></script>
     <script src="classes/collision.js"></script>
-    <script src="classes/acceleration.js"></script>
+   <script src="classes/acceleration.js"></script>
     <script>
+        
         //this function will always be executed when the page loads
         window.onload = function () {
             //create a reference to the canvas
             var canvas = document.getElementById('canvas'),
                 //access the 2D drawing API
                 context = canvas.getContext('2d'),
-                //new instance of the Classes
+                /* 
+                 A new instance of Paddle, CPUPaddle, Ball... Classes
+                 */
                 paddle = new Paddle();
                 cpupaddle = new CPUPaddle();
                 ball = new Ball();
-                //vector = new Vector(200, 200);
                 acceleration = new Accelerate();
                 collision = new Collision();
-                //paddle.setVector(vector);
-            
-            
-
+                 /*
+                  Setting up coordinates (X, Y) for the CPUPaddle, Paddle, Ball on the canvas
+                  
+                  */
+           
                 cpupaddle.X = 200;
                 cpupaddle.Y = 5;
 
                 paddle.X = 200;
                 paddle.Y = 595;
-
-            
-            
-
 
                 ball.X = 200;
                 ball.Y = 300;
@@ -54,24 +61,22 @@
 
                 //if the left arrow is pressed
                 if (event.keyCode == keycode.LEFT) {
-                    //acceleration.HThrust(.1);
-                    paddle.X -= 5
+                    //the paddle moves 10px right side
+                    paddle.X -= 10
 
                 }
                 //if the right arrow is pressed
                 if (event.keyCode == keycode.RIGHT) {
 
-                    //acceleration.HThrust(-.1);
-                    paddle.X += 5
+                    //the paddle moves 10px right side
+                    paddle.X += 10
                 }
 
             }
 
             //add a listener for the keydown event
             window.addEventListener('keydown', KeyboardEventHandler, false);
-
-
-
+             
             (function drawFrame() {
                 //clear the canvas
                 context.clearRect(0, 0, canvas.width, canvas.height);
@@ -79,75 +84,105 @@
                 ball.Y += ball.VY;
                 //increase the x posn by the x velocity
                 ball.X += ball.VX;
+
                 //if the ball miss the paddle
                 if (ball.Y - ball.Size < 0) {
-                    //reverse the y velocity
-                    //ball.VY = -ball.VY;
                     console.log("Goal for Player!");
-                    /*
-                    ball.X = canvas.width / 2;
-                    ball.Y = canvas.height / 2;
-                    */
-
-
-
-
+                    ball.X = 200;
+                    ball.Y = 300;
+                    cpupaddle.X = 200;
+                    cpupaddle.Y = 5;
+                    paddle.X = 200;
+                    paddle.Y = 595;
+                    var PlayerGoal;
+                    PlayerGoal++;
+                    console.log(PlayerGoal);
                 }
+                let cpuGoal = 0;
+                //if the ball miss the paddle
                 if (ball.Y + ball.Size > canvas.height) {
-                    //reverse the y velocity
-                    //ball.VY = -ball.VY;
                     console.log("Goal for CPU!");
+                    //set the ball to these coordinates when ball misses the player paddle
+                    ball.X = 200;
+                    ball.Y = 300;
+                    cpupaddle.X = 200;
+                    cpupaddle.Y = 5;
+                    paddle.X = 200;
+                    paddle.Y = 595;
+                    //let cpuGoal= 0;
+                    cpuGoal++;
+                    console.log(cpuGoal);
                 }
-                //if the box hits the canvas left or right
+                //if the ball hits the canvas left or right
                 if (ball.X - ball.Size < 0 | ball.X + ball.Size > canvas.width) {
                     //reverse the x velocity
                     ball.VX = -ball.VX;
+                    //draw a squeeze ball frame when it hits the left and right sides of the canvas
+                    ball.drawSqueezedHorizontally(context);
+                    
                 }
-                /*
-                //if the ball hits CPU paddle
-                if (ball.Y - ball.Size < 10| ball.Y + paddle.height > 200) {
-                    //ball.VY = -ball.VY;
-                    console.log("hits CPU paddle!");
+                //calculate the difference between the box x position and the arrow x position
+                //var dx = ball.X - (cpupaddle.X - Math.random(10000));
+                // Alternative syntax.
+               // console.log(cpupaddle.X, cpupaddle.Y);
+               // console.log(random)
+                Paddle.prototype.move = function () {
+                   // var random = [0];
+                    //the CPU Paddle follows the ball (the calculated position of the ball)
+                    //x += dx
+                    if (ball.Y >= canvas.height / 2) {
+                       // x += 0;
+                        //cpupaddle.X = 200;
+                        //cpupaddle.Y = 5;
+                        if (cpupaddle.X > 200) {
+                            cpupaddle.X -= 1;
+                            //scpupaddle.Y -= 1;
+                        }
+                        else if (cpupaddle.X < 200) {
+                            cpupaddle.X += 1;
+                        }
+
+                    }
+                    else {
+                       // ((x += ball.X - (cpupaddle.X - 50)) || (x += ball.X - (cpupaddle.X - 0))
+                        
+                        x += ball.X - cpupaddle.X;
+                    
+                    }
                 }
-                //if the ball hits Palyer paddle
-                if (ball.X - paddle.width < 590 | ball.X + paddle.width > 200 ) {
-                    //ball.VY = -ball.VY;
-                    console.log("hits Palyer paddle!");
-                }
-                */
-
-
-
-                //set the angle of rotation for the arrow
-                // arrow.Rotation = Math.atan2(dy, dx);
-                //draw the box
+                //draw the ball on the canvas
                 ball.draw(context);
+                //draw CPU Paddle on the canvas
                 cpupaddle.drawCPU(context);
+                //draw the player paddle on the canvas
                 paddle.drawPlayer(context);
-                
+                //get the paddle move function (so the palyer paddle starts moving)
                 paddle.move();
-                //paddle.accelerate(acceleration);
-                
+                //create a condition to have collision between the ball and player paddle
                 if (collision.Overlapping(ball, paddle)) {
                     //alert that a collision has taken place
                     console.log("Hit the paddle")
-                    ball.VX = -ball.VX;
-                    ball.VY = -ball.VY;
+                    ball.drawSqueezedVertically(context);
+                    //reverse the ball
+                    ball.VY = -ball.VY;  
                 }
                 
                 if (collision.Overlapping(ball, cpupaddle)) {
                     //alert that a collision has taken place
                     console.log("Hit the cpu paddle")
-                    ball.VX = -ball.VX;
+
+                    ball.drawSqueezedVertically(context);
                     ball.VY = -ball.VY;
-                }
-                
+                    let random = Math.floor((Math.random() * 100) + 1);
+                    console.log(random);
+                }   
                 //request the next frame
                 window.requestAnimationFrame(drawFrame);
-
             })();
-
         }
     </script>
+    <footer class="footer">
+        <p class="title">Produced by Vladimirs Ribakovs</p>
+    </footer>
 </body>
 </html>
