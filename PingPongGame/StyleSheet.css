@@ -1,31 +1,52 @@
 ﻿body {
     background-color: rgb(176,176,176);
 }
-.header {
-   
-}
-.footer {
-    
-}
 #canvas {
     background-color: rgb(255,255,255);
 }
 .game-body {
+    /*
+        using flex for displaying
+    */
     display: flex;
+    /*
+        horizontally and vertically centered
+    */
     justify-content: center;
     align-items: center;
+    /* margin from top  */
     margin-top: 2em;
 }
 .header .title {
+    /* gives some font & font size for title and align the title by center */
     text-align: center;
     font-family: fantasy;
-    font-size: 2em;
+    font-size: 1.5em;
 }
 .footer .title {
     text-align: center;
     font-family: fantasy;
     font-size: 1em;
 }
-
+.main {
+    display: flex;
+    justify-content: center;
+}
+.score_id {
+    padding: 1em 0 0 2em;
+    font-family: cursive;
+    font-size: 2em;
+}
+td {
+    display: flex;
+    padding-left: 2em;
+    
+}
+p {
+    margin: 0 0 0 0.5em;
+}
+h4 {
+    margin: 20px;
+}
 
 

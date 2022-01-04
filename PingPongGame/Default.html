@@ -2,19 +2,33 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ping Pong Game</title> <!-- name of the webpage -->
     <link href="StyleSheet.css" rel="stylesheet" /> <!-- Connection link to the CSS file -->
 </head>
 <body>
     <header class="header">
-        <p class="title">The Game Created For The IMAT2015_2122_501 Multimedia Development</p>
+        <h4 class="title">The Game Created For The IMAT2015_2122_501 Multimedia Development</h4>
     </header>
-    <!--Create basic body for the canvas-->
-    <div class="game-body">
-        <!--Create canvas itselft (place where game going to be created)-->
-        <canvas id="canvas" width="400" height="600">
-        </canvas>
+    <div class="main">
+        <div class="game-body">
+            <!--Create canvas itselft (place where game going to be created)-->
+            <canvas id="canvas" width="400" height="600"></canvas>
+        </div>
+            <!-- Creating area for score (table inside the div block)
+                the playerGoal & cpuGaol are variables to from js to see score
+                -->
+        <div class="score">
+            <table class="score_id">
+                <tr><th>Score</th></tr>
+                <tr><td>Player: <p id="playerGoal"></p></td></tr>
+                <tr><td>Computer: <p id="cpuGoal"></p></td></tr>
+
+            </table>
+        </div>
     </div>
+    <!--Create basic body for the canvas-->
+    
     <!--
         Creating connection links to the classes (import the classes in the html page)    
     -->
@@ -54,6 +68,8 @@
                 ball.X = 200;
                 ball.Y = 300;
 
+            var cpuGoal = 0;
+            var playerGoal = 0;
 
 
             //function to handle keyboard events
@@ -73,7 +89,7 @@
                 }
 
             }
-
+           
             //add a listener for the keydown event
             window.addEventListener('keydown', KeyboardEventHandler, false);
              
@@ -84,24 +100,28 @@
                 ball.Y += ball.VY;
                 //increase the x posn by the x velocity
                 ball.X += ball.VX;
-
+                
                 //if the ball miss the paddle
                 if (ball.Y - ball.Size < 0) {
                     console.log("Goal for Player!");
+                    playerGoal++;
+                    document.getElementById("playerGoal").innerHTML = playerGoal;
                     ball.X = 200;
                     ball.Y = 300;
                     cpupaddle.X = 200;
                     cpupaddle.Y = 5;
                     paddle.X = 200;
                     paddle.Y = 595;
-                    var PlayerGoal;
-                    PlayerGoal++;
-                    console.log(PlayerGoal);
+                   
                 }
-                let cpuGoal = 0;
+                
                 //if the ball miss the paddle
                 if (ball.Y + ball.Size > canvas.height) {
                     console.log("Goal for CPU!");
+                   // goal++;
+                    cpuGoal++;
+                    document.getElementById("cpuGoal").innerHTML = cpuGoal
+                    //console.log(cpuGoal);
                     //set the ball to these coordinates when ball misses the player paddle
                     ball.X = 200;
                     ball.Y = 300;
@@ -110,8 +130,8 @@
                     paddle.X = 200;
                     paddle.Y = 595;
                     //let cpuGoal= 0;
-                    cpuGoal++;
-                    console.log(cpuGoal);
+                   // cpuGoal++;
+                   // console.log(cpuGoal);
                 }
                 //if the ball hits the canvas left or right
                 if (ball.X - ball.Size < 0 | ball.X + ball.Size > canvas.width) {
@@ -122,21 +142,12 @@
                     
                 }
                 //calculate the difference between the box x position and the arrow x position
-                //var dx = ball.X - (cpupaddle.X - Math.random(10000));
-                // Alternative syntax.
-               // console.log(cpupaddle.X, cpupaddle.Y);
-               // console.log(random)
-                Paddle.prototype.move = function () {
-                   // var random = [0];
+                Paddle.prototype.move = function () {              
                     //the CPU Paddle follows the ball (the calculated position of the ball)
-                    //x += dx
                     if (ball.Y >= canvas.height / 2) {
-                       // x += 0;
-                        //cpupaddle.X = 200;
-                        //cpupaddle.Y = 5;
                         if (cpupaddle.X > 200) {
                             cpupaddle.X -= 1;
-                            //scpupaddle.Y -= 1;
+                            
                         }
                         else if (cpupaddle.X < 200) {
                             cpupaddle.X += 1;
@@ -144,10 +155,31 @@
 
                     }
                     else {
-                       // ((x += ball.X - (cpupaddle.X - 50)) || (x += ball.X - (cpupaddle.X - 0))
+                       /*
+                        some logic some the cpu paddle motions
+                        Primitive logic (if player has more/less goal then cpuPaddle misses the goal or not)
+                        */
+                        if (cpuGoal == playerGoal) {
+                            x += ball.X - (cpupaddle.X - 80);
+
+                        }
+
+                        else if (cpuGoal > playerGoal) {
+                            x += ball.X - (cpupaddle.X - 80);
                         
-                        x += ball.X - cpupaddle.X;
-                    
+                        }
+                            
+                        else if (cpuGoal < playerGoal) {
+                            x += ball.X - (cpupaddle.X - 0);
+
+                        }
+                        else if (cpuGoal == 5 || cpuGoal == 6 || cpuGoal == 10) {
+                            x += ball.X - (cpupaddle.X - 60);
+                        }
+                        else if (playerGoal == 3 || playerGoal == 5 || playerGoal == 6 || playerGoal == 7) {
+                            x += ball.X - (cpupaddle.X - 100);
+
+                        }
                     }
                 }
                 //draw the ball on the canvas
@@ -173,8 +205,10 @@
 
                     ball.drawSqueezedVertically(context);
                     ball.VY = -ball.VY;
-                    let random = Math.floor((Math.random() * 100) + 1);
-                    console.log(random);
+                    //et random = Math.floor((Math.random() * 100) + 1);
+                    //console.log(random);
+                    //cpupaddle.;
+
                 }   
                 //request the next frame
                 window.requestAnimationFrame(drawFrame);
@@ -182,7 +216,7 @@
         }
     </script>
     <footer class="footer">
-        <p class="title">Produced by Vladimirs Ribakovs</p>
+        <h4 class="title">Produced by Vladimirs Ribakovs</h4>
     </footer>
 </body>
 </html>
