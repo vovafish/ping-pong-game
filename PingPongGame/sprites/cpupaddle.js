@@ -1,9 +1,13 @@
 ﻿function CPUPaddle() {
-        x = 200,
-        y = 5,
-        width = canvas.width,
-        heigth = canvas.height,
-        widthPaddle = 100,
+    /*
+     Creating basic variable for the CPU Paddle class
+     */
+        x = 0, //x coordinate for the ball
+        y = 0, //y coordiante for the ball
+        vx = 0, // velocity of CPU Paddle (right and left)
+        width = canvas.width, //width of the canvas
+        heigth = canvas.height, //height of the canvas
+        widthPaddle = 100, 
         heightPaddle = 10,
         color = "blue";
 
@@ -13,7 +17,7 @@
             //getter
             get: function () {
                 //return the y posn less the height
-                return y - 5;
+                return y - 10;
             }
         }
     )
@@ -24,7 +28,7 @@
             //getter
             get: function () {
                 //return the y posn plus the height
-                return y + 5;
+                return y + 10;
             }
         }
     )
@@ -35,7 +39,7 @@
             //getter
             get: function () {
                 //return the x posn less the width
-                return x - 50;
+                return x - 60;
             }
         }
     )
@@ -46,14 +50,24 @@
             //getter
             get: function () {
                 //return the x posn plus the width
-                return x + 50;
+                return x + 60;
             }
         }
     )
 
+    //public property for X
+    Object.defineProperty(this, 'VX',
+        {
+            get: function () {
+                return vx;
+            },
+            set: function (value) {
+                vx = value;
+            }
+        }
+    )
 
-
-
+    //make privete x variable available in the Default.html
     Object.defineProperty(this, 'X',
         {
             get: function () {
@@ -84,14 +98,10 @@
         //start the line (path)
         context.beginPath();
         context.fillStyle = color;
-        //context.fillRect(width / 2 - widthPaddle / 2, 0, widthPaddle, heightPaddle);
         context.moveTo(-50, -5);
         context.lineTo(50, -5);
         context.lineTo(50, 5);
         context.lineTo(-50, 5);
-
-
-
         context.stroke();
         //close the path
         context.closePath();
