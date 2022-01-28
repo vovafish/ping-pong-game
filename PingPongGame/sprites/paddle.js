@@ -1,11 +1,7 @@
 ﻿function Paddle() {
-<<<<<<< HEAD
-    //
-=======
     /*
      Creating basic variables for the Player Paddle
      */
->>>>>>> SecondStart
     var x = 0,
         y = 0,
         vx = 0,
